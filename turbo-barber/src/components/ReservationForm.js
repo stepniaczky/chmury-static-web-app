@@ -112,6 +112,7 @@ const ReservationForm = () => {
       );
       setFilteredServices(newFilteredServices);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedLocationId, selectedBarberId]);
 
   const handleSubmit = (e) => {

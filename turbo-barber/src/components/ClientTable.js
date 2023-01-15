@@ -50,8 +50,8 @@ const ClientTable = () => {
   }, []);
 
   //Tu trzeba ściągąć mail usera zalogowanego
-  const UserEmail = "user@gmail.com";
-  // const UserEmail = accounts[0].username;
+  // const UserEmail = "user@gmail.com";
+  const UserEmail = accounts[0].username;
 
   //Przefiltrowane rezerwacje danego uzytkownika
   const filteredApointments = apointment.filter((apointment) => {

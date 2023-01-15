@@ -1,0 +1,6 @@
+fastapi
+python-dotenv
+azure-functions
+geopy
+pymongo
+pydantic[email]

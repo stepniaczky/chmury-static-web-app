@@ -1,0 +1,26 @@
+.ListGroup {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+    margin: 15px auto;
+}
+
+
+.ListGroup2Cells {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-around;
+}
+
+.ListGroupDesc {
+    margin-top: 0.5rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.ListGroupDesc > p {
+    width: 70%;
+}

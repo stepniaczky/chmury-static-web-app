@@ -23,7 +23,6 @@ const LocationList = () => {
         axios
             .get("api/barber_locations")
             .then((res) => {
-                console.log("Getting locations data :::", res.data);
                 setLocation(res.data);
             })
             .catch((err) => console.log(err));

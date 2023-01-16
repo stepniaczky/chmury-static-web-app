@@ -11,6 +11,7 @@ import { useSelector } from "react-redux";
 const ReservationForm = () => {
   const isAuthenticated = useSelector((state) => state.auth.user);
 
+  const [userLocation, setUserLocation] = useState(null);
   const [selectedLocationId, setSelectedLocationId] = useState(null);
   const [selectedBarberId, setSelectedBarberId] = useState(null);
   const [selectedServiceId, setSelectedServiceId] = useState(null);
@@ -20,18 +21,41 @@ const ReservationForm = () => {
   const [filteredBarbers, setFilteredBarbers] = useState([]);
   const [filteredServices, setFilteredServices] = useState([]);
 
+  const getDistance = (lat1, lon1, lat2, lon2) => {
+    return Math.sqrt(Math.pow((lat2 - lat1), 2) + Math.pow((lon2 - lon1), 2));
+  }
+
+  const handleFindNearest = () => {
+    const userLat = userLocation.latitude;
+    const userLon = userLocation.longitude;
+
+    let nearestLocation = location[0];
+    let nearestDistance = getDistance(userLat, userLon, nearestLocation.address_lat, nearestLocation.address_lon);
+
+    location.forEach((loc) => {
+      const distance = getDistance(userLat, userLon, loc.address_lat, loc.address_lon);
+      if (distance < nearestDistance) {
+        nearestDistance = distance;
+        nearestLocation = loc;
+      }
+    });
+
+    setSelectedLocationId(nearestLocation._id);
+  };
+
+
   const handleLocationChange = ({ target }) => {
-    if (target.value === "Select location") return;
+    if (target.value === "Select location") {setSelectedLocationId(null); return;}
     setSelectedLocationId(target.value);
   };
 
   const handleBarberChange = ({ target }) => {
-    if (target.value === "Select barber") return;
+    if (target.value === "Select barber") {setSelectedBarberId(null); return;}
     setSelectedBarberId(target.value);
   };
 
   const handleServiceChange = ({ target }) => {
-    if (target.value === "Select service") return;
+    if (target.value === "Select service") {setSelectedServiceId(null); return;}
     setSelectedServiceId(target.value);
   };
 
@@ -75,6 +99,12 @@ const ReservationForm = () => {
   const [barber, setBarber] = useState([]);
 
   useEffect(() => {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      setUserLocation(position.coords);
+    });
+  });
+
+  useEffect(() => {
     //GET - Service
     axios
       .get("api/barber_services")
@@ -99,6 +129,7 @@ const ReservationForm = () => {
   }, []);
 
   useEffect(() => {
+
     if (!selectedLocationId) setFilteredBarbers([]);
     if (!selectedBarberId) setFilteredServices([]);
 
@@ -189,7 +220,8 @@ const ReservationForm = () => {
             className="text-white"
           />
         </div>
-        <Select id="locations" required={true} onChange={handleLocationChange}>
+        <div className="w-full flex flex-row justify-between">
+        <Select style={{minWidth: "16.5rem"}} id="locations" value={selectedLocationId} required={true} onChange={handleLocationChange}>
           <option selected>Select location</option>
           {location.map(({ _id, city, address }) => (
             <option key={_id} value={_id}>
@@ -197,6 +229,8 @@ const ReservationForm = () => {
             </option>
           ))}
         </Select>
+        <Button class="text-white bg-stone-600 rounded-lg px-5" onClick={handleFindNearest}>ZNAJDŹ NAJBLIŻSZĄ</Button>
+        </div>
       </div>
       <div id="selectBarber" className="my-1 mx-3">
         <div className="mb-2 block">

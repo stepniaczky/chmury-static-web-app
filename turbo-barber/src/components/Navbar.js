@@ -41,7 +41,7 @@ const Navbar = (props) => {
       <FlowbiteNavbar class="bg-gray-800 m-auto my-3">
         <FlowbiteNavbar.Brand>
           <Link to={routes.home} className="list-none">
-            <FlowbiteNavbar.Link className="text-white max-sm:hidden md:hover:text-gray-800">
+            <FlowbiteNavbar.Link className="text-white md:hover:text-gray-800 border-none">
               Turbo Barber
             </FlowbiteNavbar.Link>
           </Link>

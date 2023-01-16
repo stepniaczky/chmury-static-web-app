@@ -12,12 +12,8 @@
     },
     {
       "route": "/admin",
-      "redirect": "https://turbo-barber-api.azurewebsites.net/docs",
+      "redirect": "api/docs",
       "statusCode": 301
-    },
-    {
-      "route": "/admin",
-      "allowedRoles": ["admin"]
     },
 
     {

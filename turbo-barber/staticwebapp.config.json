@@ -13,7 +13,8 @@
     {
       "route": "/admin",
       "redirect": "api/docs",
-      "statusCode": 301
+      "statusCode": 301,
+      "allowedRoles": ["admin"]
     },
 
     {

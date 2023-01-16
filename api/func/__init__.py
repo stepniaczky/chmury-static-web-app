@@ -8,6 +8,8 @@ from routers import appointments, barber_locations, barber_services, barbers
 from db import config
 
 app = FastAPI(
+    docs_url="/api/docs",
+    openapi_url="/api/openapi.json",
     title=settings.PROJECT_NAME,
     license_info={
         "name": "MIT License",
@@ -23,14 +25,18 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 @app.on_event("startup")
 def startup_event():
     config.config()
 
-app.include_router(appointments.router, tags=['appointments'])
-app.include_router(barber_locations.router, tags=['barber_locations'])
-app.include_router(barber_services.router, tags=['barber_services'])
-app.include_router(barbers.router, tags=['barbers'])
+
+app.include_router(appointments.router, prefix="/api", tags=['appointments'])
+app.include_router(barber_locations.router, prefix="/api",
+                   tags=['barber_locations'])
+app.include_router(barber_services.router, prefix="/api",
+                   tags=['barber_services'])
+app.include_router(barbers.router, prefix="/api", tags=['barbers'])
 
 
 def main(req: func.HttpRequest, context: func.Context) -> func.HttpResponse:

@@ -8,7 +8,7 @@ const ServiceList = () => {
   const [service,setService] = useState([])
 
   useEffect(() => {
-    axios.get('https://turbo-barber-api.azurewebsites.net/barber_services')
+    axios.get('api/barber_services')
     .then(res => {
       console.log("Getting services data :::" ,res.data)
       setService(res.data)

@@ -11,7 +11,7 @@ const AdminTable = () => {
   useEffect(() => {
     //GET - Service
     axios
-      .get("https://turbo-barber-api.azurewebsites.net/barber_services")
+      .get("api/barber_services")
       .then((res) => {
         console.log("Getting services data :::", res.data);
         setService(res.data);
@@ -19,7 +19,7 @@ const AdminTable = () => {
       .catch((err) => console.log(err));
     //GET - Location
     axios
-      .get("https://turbo-barber-api.azurewebsites.net/barber_locations")
+      .get("api/barber_locations")
       .then((res) => {
         console.log("Getting locations data :::", res.data);
         setLocation(res.data);
@@ -27,7 +27,7 @@ const AdminTable = () => {
       .catch((err) => console.log(err));
     //GET - Barber
     axios
-      .get("https://turbo-barber-api.azurewebsites.net/barbers")
+      .get("api/barbers")
       .then((res) => {
         console.log("Getting barbers data :::", res.data);
         setBarber(res.data);

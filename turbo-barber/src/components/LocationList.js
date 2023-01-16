@@ -21,7 +21,7 @@ const LocationList = () => {
     useEffect(() => {
         //GET - Location
         axios
-            .get("https://turbo-barber-api.azurewebsites.net/barber_locations")
+            .get("api/barber_locations")
             .then((res) => {
                 console.log("Getting locations data :::", res.data);
                 setLocation(res.data);

@@ -6,7 +6,7 @@ export const DeleteAppointmentButton = (props) => {
 
     const handleDelete = async (id) => {
         try {
-            axios.put(`https://turbo-barber-api.azurewebsites.net/appointments/${id}`, {
+            axios.put(`api/appointments/${id}`, {
                 "is_cancelled": true
             });
         } catch (error) {

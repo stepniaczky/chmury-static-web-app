@@ -16,7 +16,10 @@
       "statusCode": 301,
       "allowedRoles": ["admin"]
     },
-
+    {
+      "route": "/api/docs",
+      "allowedRoles": ["admin"]
+    },
     {
       "route": "api/appointments",
       "methods": ["GET"],

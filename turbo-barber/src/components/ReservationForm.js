@@ -218,7 +218,7 @@ const ReservationForm = () => {
           />
         </div>
         <div className="w-full flex flex-row justify-between">
-        <Select style={{minWidth: "16.5rem"}} id="locations" value={selectedLocationId} required={true} onChange={handleLocationChange}>
+        <Select style={{minWidth: "17rem"}} id="locations" value={selectedLocationId} required={true} onChange={handleLocationChange}>
           <option selected>Select location</option>
           {location.map(({ _id, city, address }) => (
             <option key={_id} value={_id}>
@@ -226,7 +226,7 @@ const ReservationForm = () => {
             </option>
           ))}
         </Select>
-        <Button class="text-white bg-stone-600 rounded-lg px-5" onClick={handleFindNearest}>ZNAJDŹ NAJBLIŻSZĄ</Button>
+        <Button class="text-white bg-gray-600 rounded-lg px-5" onClick={handleFindNearest}>ZNAJDŹ NAJBLIŻSZĄ</Button>
         </div>
       </div>
       <div id="selectBarber" className="my-1 mx-3">
@@ -294,7 +294,7 @@ const ReservationForm = () => {
           type="submit"
           class="text-white bg-gray-600 border border-transparent hover:bg-gray-400 group flex h-min items-center justify-center p-0.5 text-center font-medium focus:z-10 rounded-lg my-2 mx-3"
         >
-          Rezerwuj
+          ZAREZERWUJ
         </Button>
       ) : (
         <Button

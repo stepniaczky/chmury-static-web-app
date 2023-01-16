@@ -11,6 +11,8 @@ import { useSelector } from "react-redux";
 const ReservationForm = () => {
   const isAuthenticated = useSelector((state) => state.auth.user);
 
+  const [appointment, setAppointment] = useState([]);
+
   const [userLocation, setUserLocation] = useState(null);
   const [selectedLocationId, setSelectedLocationId] = useState(null);
   const [selectedBarberId, setSelectedBarberId] = useState(null);
@@ -41,17 +43,22 @@ const ReservationForm = () => {
     });
 
     setSelectedLocationId(nearestLocation._id);
+    setSelectedBarberId(null);
+    setSelectedServiceId(null);
   };
 
 
   const handleLocationChange = ({ target }) => {
     if (target.value === "Select location") {setSelectedLocationId(null); return;}
     setSelectedLocationId(target.value);
+    setSelectedBarberId(null);
+    setSelectedServiceId(null);
   };
 
   const handleBarberChange = ({ target }) => {
     if (target.value === "Select barber") {setSelectedBarberId(null); return;}
     setSelectedBarberId(target.value);
+    setSelectedServiceId(null);
   };
 
   const handleServiceChange = ({ target }) => {
@@ -128,8 +135,8 @@ const ReservationForm = () => {
 
   useEffect(() => {
 
-    if (!selectedLocationId) setFilteredBarbers([]);
-    if (!selectedBarberId) setFilteredServices([]);
+    if (!selectedLocationId) {setFilteredBarbers([]); setSelectedBarberId(null);};
+    if (!selectedBarberId) {setFilteredServices([]); setSelectedServiceId(null);};
 
     const newFilteredBarbers = barber.filter(
       ({ barber_location_id }) => barber_location_id === selectedLocationId
@@ -170,6 +177,53 @@ const ReservationForm = () => {
       return;
     }
 
+
+    axios
+      .get("api/appointments")
+      .then((res) => {
+        setAppointment(res.data);
+      })
+      .catch((err) => console.log(err));
+
+    const day = selectedDate.split("/")[0];
+    const month = selectedDate.split("/")[1];
+    const year = selectedDate.split("/")[2];
+
+    const hour = selectedTime.split(":")[0];
+    const minute = selectedTime.split(":")[1];
+
+    const formDate = new Date(year, month, day, hour, minute);
+
+    let flag = false;
+
+    appointment.forEach((app) => {
+      if (flag) return;
+      if (
+        app.barber_id === selectedBarberId &&
+        app.start_date.split(",")[0] === selectedDate) {
+          console.log("XD")
+        const appDay = app.start_date.split(",")[0].split("/")[0];
+        const appMonth = app.start_date.split(",")[0].split("/")[1];
+        const appYear = app.start_date.split(",")[0].split("/")[2];
+
+        const appHour = app.start_date.split(", ")[1].split(":")[0];
+        const appMinute = app.start_date.split(", ")[1].split(":")[1];
+
+        const appDate = new Date(appYear, appMonth, appDay, appHour, appMinute);
+        console.log(formDate)
+        console.log(appDate)
+
+        const appDateEnd = new Date(appDate.getTime() + app.custom_duration * 60 * 1000)
+        console.log(appDateEnd)
+        if (formDate >= appDate && formDate <= appDateEnd) {
+          NotificationManager.error("Ten Barber jest zajęty w tym czasie!");
+          flag = true;
+          return;
+        }
+      }
+    });
+
+    if (flag) return;
     const newAppointment = {
       client_email: isAuthenticated,
       barber_id: selectedBarberId,
@@ -233,7 +287,7 @@ const ReservationForm = () => {
         <div className="mb-2 block">
           <Label htmlFor="barbers" value="Barber" className="text-white" />
         </div>
-        <Select id="barbers" required={true} onChange={handleBarberChange}>
+        <Select id="barbers" required={true} value={selectedBarberId} onChange={handleBarberChange}>
           <option selected>Select barber</option>
           {filteredBarbers.map(({ _id, first_name, last_name }) => (
             <option key={_id} value={_id}>
@@ -246,7 +300,7 @@ const ReservationForm = () => {
         <div className="mb-2 block">
           <Label htmlFor="services" value="Usługa" className="text-white" />
         </div>
-        <Select id="services" required={true} onChange={handleServiceChange}>
+        <Select id="services" required={true} value={selectedServiceId} onChange={handleServiceChange}>
           <option selected>Select service</option>
           {filteredServices.map(({ _id, name }) => (
             <option key={_id} value={_id}>

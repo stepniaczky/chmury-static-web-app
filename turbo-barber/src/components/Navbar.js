@@ -40,9 +40,11 @@ const Navbar = (props) => {
     <div className=" bg-gray-800 z-0 shadow-md">
       <FlowbiteNavbar class="bg-gray-800 m-auto my-3">
         <FlowbiteNavbar.Brand>
-          <span className="bg-gray-800 self-center whitespace-nowrap text-xl font-bold text-white">
-            Turbo Barber
-          </span>
+          <Link to={routes.home} className="list-none">
+            <FlowbiteNavbar.Link className="text-white max-sm:hidden md:hover:text-gray-800">
+              Turbo Barber
+            </FlowbiteNavbar.Link>
+          </Link>
         </FlowbiteNavbar.Brand>
         <FlowbiteNavbar.Collapse className="bg-gray-800">
           <Button>
@@ -68,8 +70,12 @@ const Navbar = (props) => {
           </Button>
           {isAdmin()}
           {isClient()}
-          <Button color="warning">
-            {isAuthenticated ? <SignOutButton /> : <SignInButton />}
+          <Button color="warning" className="hover:bg-gray-800">
+            {isAuthenticated ? (
+              <SignOutButton className="hover:bg-gray-800" />
+            ) : (
+              <SignInButton className="hover:bg-gray-800" />
+            )}
           </Button>
         </FlowbiteNavbar.Collapse>
         <Button className="float-right">

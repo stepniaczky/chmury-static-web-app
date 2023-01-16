@@ -46,7 +46,11 @@ const TemplateBurger = () => {
             {isClient()}
             <Sidebar.Item>
               <Button color="warning">
-                {isAuthenticated ? <SignOutButton /> : <SignInButton />}
+                {isAuthenticated ? (
+                  <SignOutButton className="hover:bg-gray-800" />
+                ) : (
+                  <SignInButton className="hover:bg-gray-800" />
+                )}
               </Button>
             </Sidebar.Item>
           </Sidebar.ItemGroup>

@@ -23,7 +23,7 @@ const MainContent = () => {
     loadUser();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  
+
   return (
     <div className="App">
       {isAuthenticated ? (
@@ -34,7 +34,7 @@ const MainContent = () => {
               <Route path={routes.services} element={<Services />} />
               <Route path={routes.locations} element={<Locations />} />
               {userRoles.includes("admin") ? (
-              <Route path={routes.admin} element={<Admin />} />
+                <Route path={routes.admin} element={<Admin />} />
               ) : null}
               <Route path={routes.client} element={<Client />} />
               <Route path={routes.burger} element={<Burger />} />

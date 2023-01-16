@@ -1,17 +1,15 @@
 import { Label, Select, Button } from "flowbite-react";
 import { useEffect, useState } from "react";
-import { useIsAuthenticated } from "@azure/msal-react";
 import {
   NotificationContainer,
   NotificationManager,
 } from "react-notifications";
 import "react-notifications/lib/notifications.css";
 import axios from "axios";
-import { useMsal } from "@azure/msal-react";
+import { useSelector } from "react-redux";
 
 const ReservationForm = () => {
-  const { accounts } = useMsal();
-  const isAuthenticated = useIsAuthenticated();
+  const isAuthenticated = useSelector((state) => state.auth.user);
 
   const [selectedLocationId, setSelectedLocationId] = useState(null);
   const [selectedBarberId, setSelectedBarberId] = useState(null);
@@ -139,7 +137,7 @@ const ReservationForm = () => {
     }
 
     const newAppointment = {
-      client_email: accounts[0].username,
+      client_email: isAuthenticated,
       barber_id: selectedBarberId,
       barber_location_id: selectedLocationId,
       barber_service_id: selectedServiceId,
@@ -245,7 +243,7 @@ const ReservationForm = () => {
           />
         </div>
       ) : null}
-      {isAuthenticated ? (
+      {isAuthenticated !== undefined ? (
         <Button
           type="submit"
           class="text-white bg-stone-600 border border-transparent hover:bg-stone-400 group flex h-min items-center justify-center p-0.5 text-center font-medium focus:z-10 rounded-lg my-2 mx-3"

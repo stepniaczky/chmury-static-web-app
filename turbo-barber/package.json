@@ -3,9 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@azure/msal-angular": "^2.5.1",
-    "@azure/msal-browser": "^2.32.1",
-    "@azure/msal-react": "^1.5.1",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
     "@mui/material": "^5.11.0",
@@ -21,8 +18,10 @@
     "react-dom": "^18.2.0",
     "react-notifications": "^1.7.4",
     "react-popup-alert": "^2.0.0",
+    "react-redux": "^8.0.5",
     "react-router-dom": "^6.5.0",
     "react-scripts": "5.0.1",
+    "redux-thunk": "^2.4.2",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

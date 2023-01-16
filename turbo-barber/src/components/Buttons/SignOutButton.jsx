@@ -1,18 +1,16 @@
 import React from "react";
-import { useMsal } from "@azure/msal-react";
+import * as authActions from "../../store/actions/auth";
 
-/**
- * Renders a sign-out button
- */
 export const SignOutButton = () => {
-    const { instance } = useMsal();
+    const handleSignOut = () => {
+        authActions.logOut();
+    };
 
-    const handleLogout = () => {
-        instance.logoutRedirect({
-                postLogoutRedirectUri: "/",
-            });
-        }
     return (
-        <button className="ml-auto" onClick={() => handleLogout()}>WYLOGUJ SIĘ</button>
-    )
-}
+        <a href="/logout">
+        <button onClick={handleSignOut}>
+            WYLOGUJ SIĘ
+        </button>
+        </a>
+  );
+};

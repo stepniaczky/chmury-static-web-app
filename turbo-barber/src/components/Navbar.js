@@ -1,17 +1,21 @@
 import { Navbar as FlowbiteNavbar } from "flowbite-react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import routes from "../data/routes";
 import { SignInButton } from "../components/Buttons/SignInButton";
 import { SignOutButton } from "../components/Buttons/SignOutButton";
-import { useIsAuthenticated } from "@azure/msal-react";
 import Button from "@mui/material/Button";
+import User from '../auth.js';
+import { useSelector } from "react-redux";
+
 
 const Navbar = (props) => {
-  const isAuthenticated = useIsAuthenticated();
+  const isAuthenticated = useSelector((state) => state.auth.user);
+  const userRoles = useSelector((state) => state.auth.userRoles);
 
   // tu po isAuthenticated nalezy dodac funkcje okreslajaca role
   const isAdmin = () => {
-    if (isAuthenticated) {
+    if (isAuthenticated !== undefined && userRoles.includes('admin')) {
       return (
         <Button>
           <Link to={routes.admin}>
@@ -24,7 +28,7 @@ const Navbar = (props) => {
     }
   };
   const isClient = () => {
-    if (isAuthenticated) {
+    if (isAuthenticated !== undefined) {
       return (
         <Button>
           <Link to={routes.client}>

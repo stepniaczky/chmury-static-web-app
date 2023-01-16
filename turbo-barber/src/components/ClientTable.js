@@ -2,11 +2,12 @@ import { Table } from "flowbite-react";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { DeleteAppointmentButton } from './Buttons/DeleteAppointmentButton';
-import {useMsal} from '@azure/msal-react';
+import loadUser from '../auth.js';
+import { useSelector } from "react-redux";
 
 const ClientTable = () => {
   //Apointment, Service, Location, Barber - GET
-  const {accounts} = useMsal();
+  const userEmail = useSelector((state) => state.auth.user);
 
 
   const [apointment, setApointment] = useState([]);
@@ -49,9 +50,8 @@ const ClientTable = () => {
       .catch((err) => console.log(err));
   }, []);
 
-  //Tu trzeba ściągąć mail usera zalogowanego
-  // const UserEmail = "user@gmail.com";
-  const UserEmail = accounts[0].username;
+  console.log("userEmail", userEmail)
+  const UserEmail = userEmail;
 
   //Przefiltrowane rezerwacje danego uzytkownika
   const filteredApointments = apointment.filter((apointment) => {

@@ -2,7 +2,6 @@ import { Table } from "flowbite-react";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { DeleteAppointmentButton } from './Buttons/DeleteAppointmentButton';
-import loadUser from '../auth.js';
 import { useSelector } from "react-redux";
 
 const ClientTable = () => {

@@ -10,9 +10,13 @@
       "redirect": "/.auth/logout/?post_logout_redirect_uri=/",
       "statusCode": 301
     },
-
     {
-      "route": "api/docs",
+      "route": "/admin",
+      "redirect": "https://turbo-barber-api.azurewebsites.net/docs",
+      "statusCode": 301
+    },
+    {
+      "route": "/admin",
       "allowedRoles": ["admin"]
     },
 

@@ -1,11 +1,9 @@
 import { Navbar as FlowbiteNavbar } from "flowbite-react";
-import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import routes from "../data/routes";
 import { SignInButton } from "../components/Buttons/SignInButton";
 import { SignOutButton } from "../components/Buttons/SignOutButton";
 import Button from "@mui/material/Button";
-import User from '../auth.js';
 import { useSelector } from "react-redux";
 
 
@@ -18,7 +16,7 @@ const Navbar = (props) => {
     if (isAuthenticated !== undefined && userRoles.includes('admin')) {
       return (
         <Button>
-          <Link to={routes.admin}>
+          <Link to={routes.admin} target="_blank">
             <FlowbiteNavbar.Link className="text-white md:hover:text-stone-600">
               Admin Panel
             </FlowbiteNavbar.Link>
@@ -73,7 +71,7 @@ const Navbar = (props) => {
           {isAdmin()}
           {isClient()}
           <Button color="warning">
-            {isAuthenticated ? <SignOutButton /> : <SignInButton />}
+            {isAuthenticated ? <SignOutButton/> : <SignInButton />}
           </Button>
         </FlowbiteNavbar.Collapse>
         <Button className="float-right">

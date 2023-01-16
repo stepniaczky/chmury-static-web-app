@@ -6,18 +6,16 @@ import { SignOutButton } from "../components/Buttons/SignOutButton";
 import Button from "@mui/material/Button";
 import { useSelector } from "react-redux";
 
-
 const Navbar = (props) => {
   const isAuthenticated = useSelector((state) => state.auth.user);
   const userRoles = useSelector((state) => state.auth.userRoles);
 
-  // tu po isAuthenticated nalezy dodac funkcje okreslajaca role
   const isAdmin = () => {
-    if (isAuthenticated !== undefined && userRoles.includes('admin')) {
+    if (isAuthenticated !== undefined && userRoles.includes("admin")) {
       return (
         <Button>
           <Link to={routes.admin} target="_blank">
-            <FlowbiteNavbar.Link className="text-white md:hover:text-stone-600">
+            <FlowbiteNavbar.Link className="text-white md:hover:text-gray-800">
               Admin Panel
             </FlowbiteNavbar.Link>
           </Link>
@@ -30,7 +28,7 @@ const Navbar = (props) => {
       return (
         <Button>
           <Link to={routes.client}>
-            <FlowbiteNavbar.Link className="text-white md:hover:text-stone-600">
+            <FlowbiteNavbar.Link className="text-white md:hover:text-gray-800">
               Mój Profil
             </FlowbiteNavbar.Link>
           </Link>
@@ -39,31 +37,31 @@ const Navbar = (props) => {
     }
   };
   return (
-    <div className=" bg-stone-800 z-0 shadow-md">
-      <FlowbiteNavbar class="bg-stone-800 m-auto my-3">
+    <div className=" bg-gray-800 z-0 shadow-md">
+      <FlowbiteNavbar class="bg-gray-800 m-auto my-3">
         <FlowbiteNavbar.Brand>
-          <span className="bg-stone-800 self-center whitespace-nowrap text-xl font-bold text-white">
+          <span className="bg-gray-800 self-center whitespace-nowrap text-xl font-bold text-white">
             Turbo Barber
           </span>
         </FlowbiteNavbar.Brand>
-        <FlowbiteNavbar.Collapse className="bg-stone-800">
+        <FlowbiteNavbar.Collapse className="bg-gray-800">
           <Button>
             <Link to={routes.home}>
-              <FlowbiteNavbar.Link className="text-white max-sm:hidden md:hover:text-stone-600">
+              <FlowbiteNavbar.Link className="text-white max-sm:hidden md:hover:text-gray-800">
                 Strona główna
               </FlowbiteNavbar.Link>
             </Link>
           </Button>
           <Button>
             <Link to={routes.services}>
-              <FlowbiteNavbar.Link className="text-white max-sm:hidden md:hover:text-stone-600">
+              <FlowbiteNavbar.Link className="text-white max-sm:hidden md:hover:text-gray-800">
                 Usługi
               </FlowbiteNavbar.Link>
             </Link>
           </Button>
           <Button>
             <Link to={routes.locations}>
-              <FlowbiteNavbar.Link className="text-white max-sm:hidden md:hover:text-stone-600">
+              <FlowbiteNavbar.Link className="text-white max-sm:hidden md:hover:text-gray-800">
                 Lokalizacje
               </FlowbiteNavbar.Link>
             </Link>
@@ -71,12 +69,12 @@ const Navbar = (props) => {
           {isAdmin()}
           {isClient()}
           <Button color="warning">
-            {isAuthenticated ? <SignOutButton/> : <SignInButton />}
+            {isAuthenticated ? <SignOutButton /> : <SignInButton />}
           </Button>
         </FlowbiteNavbar.Collapse>
         <Button className="float-right">
           <Link to={routes.burger} className="md:hidden list-none">
-            <FlowbiteNavbar.Link className="text-white md:hover:text-stone-600 border-none text-xl">
+            <FlowbiteNavbar.Link className="text-white md:hover:text-gray-800 border-none text-xl">
               ≡
             </FlowbiteNavbar.Link>
           </Link>

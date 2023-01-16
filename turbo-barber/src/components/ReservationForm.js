@@ -45,8 +45,16 @@ const ReservationForm = () => {
       setSelectedDate(null);
       return;
     }
+
+    let day = date.getDate();
+    let month = date.getMonth() + 1;
+    let year = date.getFullYear();
+
+    if (day < 10) day = `0${day}`;
+    if (month < 10) month = `0${month}`;
+
     setSelectedDate(
-      `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`
+      `${day}/${month}/${year}`
     );
   };
 
@@ -71,7 +79,6 @@ const ReservationForm = () => {
     axios
       .get("api/barber_services")
       .then((res) => {
-        console.log("Getting services data :::", res.data);
         setService(res.data);
       })
       .catch((err) => console.log(err));
@@ -79,7 +86,6 @@ const ReservationForm = () => {
     axios
       .get("api/barber_locations")
       .then((res) => {
-        console.log("Getting locations data :::", res.data);
         setLocation(res.data);
       })
       .catch((err) => console.log(err));
@@ -87,7 +93,6 @@ const ReservationForm = () => {
     axios
       .get("api/barbers")
       .then((res) => {
-        console.log("Getting barbers data :::", res.data);
         setBarber(res.data);
       })
       .catch((err) => console.log(err));
@@ -137,21 +142,31 @@ const ReservationForm = () => {
     }
 
     const newAppointment = {
-      client_email: isAuthenticated,
-      barber_id: selectedBarberId,
-      barber_location_id: selectedLocationId,
-      barber_service_id: selectedServiceId,
-      custom_duration: service.filter(({ _id }) => _id === selectedServiceId)[0]
-        .custom_duration,
-      start_date: `${selectedDate}, ${selectedTime}}`,
+      'client_email': isAuthenticated,
+      'barber_id': selectedBarberId,
+      'barber_location_id': selectedLocationId,
+      'barber_service_id': selectedServiceId,
+      'custom_duration': service.filter(({ _id }) => _id === selectedServiceId)[0].custom_duration,
+      'start_date': `${selectedDate}, ${selectedTime}`,
     };
 
-    console.log(newAppointment);
 
     axios.post(
       "api/appointments",
       newAppointment
+    ).then((res) => {
+      NotificationManager.success("Rezerwacja została złożona!");
+    }).catch((err) => {
+      NotificationManager.error("Wystąpił błąd. Spróbuj ponownie!");
+    }
     );
+
+    e.target.reset();
+    setSelectedLocationId(null);
+    setSelectedBarberId(null);
+    setSelectedServiceId(null);
+    setSelectedDate(null);
+    setSelectedTime(null);
   };
   return (
     <form

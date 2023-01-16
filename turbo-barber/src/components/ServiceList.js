@@ -10,7 +10,6 @@ const ServiceList = () => {
   useEffect(() => {
     axios.get('api/barber_services')
     .then(res => {
-      console.log("Getting services data :::" ,res.data)
       setService(res.data)
     }).catch(err => console.log(err))
   },[])

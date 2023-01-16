@@ -13,7 +13,6 @@ const AdminTable = () => {
     axios
       .get("api/barber_services")
       .then((res) => {
-        console.log("Getting services data :::", res.data);
         setService(res.data);
       })
       .catch((err) => console.log(err));
@@ -21,7 +20,6 @@ const AdminTable = () => {
     axios
       .get("api/barber_locations")
       .then((res) => {
-        console.log("Getting locations data :::", res.data);
         setLocation(res.data);
       })
       .catch((err) => console.log(err));
@@ -29,7 +27,6 @@ const AdminTable = () => {
     axios
       .get("api/barbers")
       .then((res) => {
-        console.log("Getting barbers data :::", res.data);
         setBarber(res.data);
       })
       .catch((err) => console.log(err));

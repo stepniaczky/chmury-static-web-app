@@ -12,6 +12,7 @@ export const DeleteAppointmentButton = (props) => {
         } catch (error) {
 
         }
+        window.location.reload(false);
     };
 
     return (

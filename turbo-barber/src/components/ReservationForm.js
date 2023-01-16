@@ -11,8 +11,6 @@ import { useSelector } from "react-redux";
 const ReservationForm = () => {
   const isAuthenticated = useSelector((state) => state.auth.user);
 
-  const [appointment, setAppointment] = useState([]);
-
   const [userLocation, setUserLocation] = useState(null);
   const [selectedLocationId, setSelectedLocationId] = useState(null);
   const [selectedBarberId, setSelectedBarberId] = useState(null);
@@ -177,53 +175,6 @@ const ReservationForm = () => {
       return;
     }
 
-
-    axios
-      .get("api/appointments")
-      .then((res) => {
-        setAppointment(res.data);
-      })
-      .catch((err) => console.log(err));
-
-    const day = selectedDate.split("/")[0];
-    const month = selectedDate.split("/")[1];
-    const year = selectedDate.split("/")[2];
-
-    const hour = selectedTime.split(":")[0];
-    const minute = selectedTime.split(":")[1];
-
-    const formDate = new Date(year, month, day, hour, minute);
-
-    let flag = false;
-
-    appointment.forEach((app) => {
-      if (flag) return;
-      if (
-        app.barber_id === selectedBarberId &&
-        app.start_date.split(",")[0] === selectedDate) {
-          console.log("XD")
-        const appDay = app.start_date.split(",")[0].split("/")[0];
-        const appMonth = app.start_date.split(",")[0].split("/")[1];
-        const appYear = app.start_date.split(",")[0].split("/")[2];
-
-        const appHour = app.start_date.split(", ")[1].split(":")[0];
-        const appMinute = app.start_date.split(", ")[1].split(":")[1];
-
-        const appDate = new Date(appYear, appMonth, appDay, appHour, appMinute);
-        console.log(formDate)
-        console.log(appDate)
-
-        const appDateEnd = new Date(appDate.getTime() + app.custom_duration * 60 * 1000)
-        console.log(appDateEnd)
-        if (formDate >= appDate && formDate <= appDateEnd) {
-          NotificationManager.error("Ten Barber jest zajęty w tym czasie!");
-          flag = true;
-          return;
-        }
-      }
-    });
-
-    if (flag) return;
     const newAppointment = {
       client_email: isAuthenticated,
       barber_id: selectedBarberId,

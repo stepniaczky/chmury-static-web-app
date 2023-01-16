@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 import Button from "@mui/material/Button";
 import { SignInButton } from "../components/Buttons/SignInButton";
 import { SignOutButton } from "../components/Buttons/SignOutButton";
-import SidebarItem from "flowbite-react/lib/esm/components/Sidebar/SidebarItem";
 
 const TemplateBurger = () => {
   const isAuthenticated = useSelector((state) => state.auth.user);

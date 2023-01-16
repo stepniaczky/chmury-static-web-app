@@ -77,9 +77,7 @@ const ReservationForm = () => {
     if (day < 10) day = `0${day}`;
     if (month < 10) month = `0${month}`;
 
-    setSelectedDate(
-      `${day}/${month}/${year}`
-    );
+    setSelectedDate(`${day}/${month}/${year}`);
   };
 
   const handleTimeChange = ({ target }) => {
@@ -146,7 +144,7 @@ const ReservationForm = () => {
       );
       setFilteredServices(newFilteredServices);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedLocationId, selectedBarberId]);
 
   const handleSubmit = (e) => {
@@ -173,24 +171,23 @@ const ReservationForm = () => {
     }
 
     const newAppointment = {
-      'client_email': isAuthenticated,
-      'barber_id': selectedBarberId,
-      'barber_location_id': selectedLocationId,
-      'barber_service_id': selectedServiceId,
-      'custom_duration': service.filter(({ _id }) => _id === selectedServiceId)[0].custom_duration,
-      'start_date': `${selectedDate}, ${selectedTime}`,
+      client_email: isAuthenticated,
+      barber_id: selectedBarberId,
+      barber_location_id: selectedLocationId,
+      barber_service_id: selectedServiceId,
+      custom_duration: service.filter(({ _id }) => _id === selectedServiceId)[0]
+        .custom_duration,
+      start_date: `${selectedDate}, ${selectedTime}`,
     };
 
-
-    axios.post(
-      "api/appointments",
-      newAppointment
-    ).then((res) => {
-      NotificationManager.success("Rezerwacja została złożona!");
-    }).catch((err) => {
-      NotificationManager.error("Wystąpił błąd. Spróbuj ponownie!");
-    }
-    );
+    axios
+      .post("api/appointments", newAppointment)
+      .then((res) => {
+        NotificationManager.success("Rezerwacja została złożona!");
+      })
+      .catch((err) => {
+        NotificationManager.error("Wystąpił błąd. Spróbuj ponownie!");
+      });
 
     e.target.reset();
     setSelectedLocationId(null);
@@ -202,7 +199,7 @@ const ReservationForm = () => {
   return (
     <form
       id="reservationForm"
-      className="max-w-lg mt-5 grid relative m-auto border border-neutral-800 rounded-lg bg-stone-900"
+      className="max-w-lg mt-5 grid relative m-auto border border-neutral-800 rounded-lg bg-gray-900"
       onSubmit={handleSubmit}
     >
       <div className="my-1 mx-1 h-auto w-auto block justify-self-center	">
@@ -295,7 +292,7 @@ const ReservationForm = () => {
       {isAuthenticated !== undefined ? (
         <Button
           type="submit"
-          class="text-white bg-stone-600 border border-transparent hover:bg-stone-400 group flex h-min items-center justify-center p-0.5 text-center font-medium focus:z-10 rounded-lg my-2 mx-3"
+          class="text-white bg-gray-600 border border-transparent hover:bg-gray-400 group flex h-min items-center justify-center p-0.5 text-center font-medium focus:z-10 rounded-lg my-2 mx-3"
         >
           Rezerwuj
         </Button>
@@ -303,7 +300,7 @@ const ReservationForm = () => {
         <Button
           disabled
           title="Aby zarezerwować usługę musisz się zalogować"
-          class="text-white bg-stone-600 border border-transparent group flex h-min items-center justify-center p-0.5 text-center font-medium focus:z-10 rounded-lg my-2 mx-3"
+          class="text-white bg-gray-600 border border-transparent group flex h-min items-center justify-center p-0.5 text-center font-medium focus:z-10 rounded-lg my-2 mx-3"
         >
           Zaloguj się przed dokonaniem rezerwacji
         </Button>

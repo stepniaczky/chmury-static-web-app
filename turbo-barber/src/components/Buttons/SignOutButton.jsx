@@ -7,7 +7,7 @@ export const SignOutButton = () => {
     };
 
     return (
-        <a href="/logout">
+        <a href="/logout" className="text-white">
         <button onClick={handleSignOut}>
             WYLOGUJ SIĘ
         </button>
